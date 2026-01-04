@@ -1,0 +1,7 @@
+Task
+Add product
+View all product
+Search product
+Update product detail
+Delete certain product
+Save /Exit
