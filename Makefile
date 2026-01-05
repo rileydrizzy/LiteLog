@@ -1,5 +1,5 @@
 # Makefile for compiling C code using the Clang compiler
-CC = clang
+CC = gcc
 
 CCFLAGS =  -Wall -Wextra -Wpedantic
 
