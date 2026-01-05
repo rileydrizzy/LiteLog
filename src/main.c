@@ -25,6 +25,7 @@ char FILENAME[] = "Inventory.dat";
 
 void main_menu_display(void)
 {
+    char user_input[3];
     unsigned short user_choice;
     printf(BLUE BOLD "==============================\n" RESET);
     printf(GREEN "     WELCOME TO LITELOG MENU \n" RESET);
@@ -37,12 +38,13 @@ void main_menu_display(void)
     printf("5. Delete a product from the Inventory \n");
     printf("6. Exit \n");
     printf(RED BOLD " ENTER OPTION \n" RESET);
-    scanf("%hu", &user_choice);
-    if (user_choice < 0 || user_choice > 7)
-    {
-        puts("Erro");
-    };
-
+        
+    if (fgets(user_input, sizeof(user_input), stdin) != NULL){
+        if (sscanf(user_input, "%hu", &user_choice) !=EOF){
+            if (user_choice <= 0 || user_choice >= 7){}
+        }
+    }
+    // printf("%hu\n", user_choice);
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
     add_product();
 }
