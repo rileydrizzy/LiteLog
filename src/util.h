@@ -4,6 +4,6 @@
  * param void
  * return
  */
-int add_product(void);
+// int add_product(void);
 
 // void print_product(Product *ptr);

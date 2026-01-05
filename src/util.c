@@ -24,13 +24,13 @@ typedef enum
 
 void print_product(Product *ptr){
     // Table Header
-    printf("%-5s %-15s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
-    printf("------------------------------\n");
-    printf("%-5d %-15s %-5d %-2f \n", ptr->product_id, ptr->name,ptr->quantity, ptr->price);
+    printf("%-5s %-25s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
+    printf("---------------------------------------------\n");
+    printf("%-5d %-25s %-5d %-2f \n", ptr->product_id, ptr->name, ptr->quantity, ptr->price);
 }
 
 
-int add_product(void)
+int add_product(char *filename)
 {
     Product new_product;
     Product *ptr = &new_product;
@@ -42,12 +42,10 @@ int add_product(void)
         }
     }
 
-    /**puts("Enter Product Name:");
-    if (fgets(BUFFER, sizeof(BUFFER), stdin)){
-        if (sscanf(BUFFER, "%d", &ptr->product_id)!= EOF){
-            printf("Product ID: %d\n", ptr->product_id);
+    puts("Enter Product Name:");
+    if (fgets(new_product.name, sizeof(new_product.name), stdin) != EOF){
+            printf("Product ID: %s\n", ptr->name);
         }
-    } **/
 
     puts("Enter Product Quantity:");
     BUFFER[0] = '\0';
@@ -62,7 +60,12 @@ int add_product(void)
             printf("Product ID: %f\n", ptr->price);
         }
     }
-
-    print_product(&ptr);
+    // TODO Write data into file
+    FILE *file = fopen(filename, 'wb');
+    if (!file){
+        // TODO Handle file error 
+    }
+    fwrite(&ptr, sizeof(Product), 1, file);
+    
     return EXIT_SUCCESS;
 }
