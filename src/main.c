@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "util.h"
+#include "def.h"
 
 #define BLUE "\033[34m"
 #define BOLD "\033[1m"
@@ -21,7 +22,7 @@
 #define YELLOW "\033[33m"
 #define RED "\033[31m"
 
-char FILENAME[] = "Inventory.dat";
+char FILENAME[] = "inventory.dat";
 
 void main_menu_display(void)
 {
@@ -46,12 +47,14 @@ void main_menu_display(void)
     }
     // printf("%hu\n", user_choice);
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
-    add_product();
+    // add_product(FILENAME);
+    read_test(FILENAME);
 }
 
 int main(void)
 {
     main_menu_display();
+    
 
     return EXIT_SUCCESS;
 }

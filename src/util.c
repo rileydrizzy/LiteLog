@@ -1,26 +1,7 @@
+#include "util.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "util.h"
-
-/**
- * @brief Represents a single Product in the database.
- */
-typedef struct
-{
-    int product_id; ///< Unique Product ID number
-    char name[50];  ///< Product Name
-    short quantity; ///< Quantity of the Product available
-    float price;    ///< Price of the Product
-} Product;
-
-typedef enum
-{
-    id,
-    name,
-    quantity,
-    price,
-} product_index;
-
+#include "def.h"
 
 void print_product(Product *ptr){
     // Table Header
@@ -63,10 +44,29 @@ int add_product(char *filename)
     // TODO Write data into file
     FILE *file = fopen(filename, "wb");
     if (!file){
-        // TODO Handle file error 
+        // Handle error
+        perror("Error");
+        return EXIT_FAILURE;
     }
-    fwrite(&ptr, sizeof(Product), 1, file);
+    fwrite(&new_product, sizeof(Product), 1, file);
     fclose(file);
     puts("Done");
+    
     return EXIT_SUCCESS;
 }
+
+int read_test(char *filename){
+    FILE* file = fopen(filename, "rb");
+    if (!file){
+        // Handle error
+        perror("Error");
+        return EXIT_FAILURE;
+    }
+    Product data; 
+    if(fread(&data, sizeof(Product), 1, file)){
+        print_product(&data);
+    }
+    fclose(file);
+    return EXIT_SUCCESS;
+}
+// int view_all(char *filename){}
