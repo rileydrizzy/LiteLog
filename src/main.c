@@ -47,7 +47,7 @@ void main_menu_display(void)
     }
     
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
-        printf("%hu\n", user_choice);
+        // printf("%hu\n", user_choice);
         switch(user_choice){
             case 1:
                 add_product(FILENAME);

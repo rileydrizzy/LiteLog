@@ -29,7 +29,7 @@ int add_product(char *filename)
         }
 
     puts("Enter Product Quantity:");
-    BUFFER[0] = '\0';
+    // BUFFER[0] = '\0';
     if (fgets(BUFFER, sizeof(BUFFER), stdin)){
         if (sscanf(BUFFER, "%hd", &ptr->quantity)!= EOF){
             printf("Product ID: %hd\n", ptr->quantity);

@@ -10,9 +10,6 @@ PROGRAM = litelog
 $(PROGRAM): $(SRC)
 	$(CC) $(CCFLAGS) $(SRC) -o $(PROGRAM)
 
-run: $(PROGRAM)
+run:
 	./$(PROGRAM)
 
-test: test.c
-	$(CC) $(CCFLAGS) test.c -o test_program
-	./test_program
