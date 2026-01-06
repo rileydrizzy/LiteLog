@@ -42,7 +42,7 @@ int add_product(char *filename)
         }
     }
     // TODO Write data into file
-    FILE *file = fopen(filename, "wb");
+    FILE *file = fopen(filename, "ab");
     if (!file){
         // Handle error
         perror("Error");
@@ -63,10 +63,12 @@ int read_test(char *filename){
         return EXIT_FAILURE;
     }
     Product data; 
-    if(fread(&data, sizeof(Product), 1, file)){
-        print_product(&data);
+    puts("Starting read");
+    printf("%-5s %-15s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
+    printf("----------------------------------------------------------\n");
+    while(fread(&data, sizeof(Product), 1, file)){
+        printf("%-5d %-15s %-10d %-2f \n", data.product_id, data.name, data.quantity, data.price);
     }
     fclose(file);
     return EXIT_SUCCESS;
 }
-// int view_all(char *filename){}

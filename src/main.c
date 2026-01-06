@@ -45,16 +45,35 @@ void main_menu_display(void)
             if (user_choice <= 0 || user_choice >= 7){}
         }
     }
-    // printf("%hu\n", user_choice);
+    
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
-    // add_product(FILENAME);
-    read_test(FILENAME);
+        printf("%hu\n", user_choice);
+        switch(user_choice){
+            case 1:
+                add_product(FILENAME);
+                break;
+            case 2:
+                read_test(FILENAME);
+                break;
+            case 3:
+                // TODO Search
+                break;
+            case 4:
+                // TODO Update
+                break;
+            case 5:
+                // TODO Delete
+                break;
+            case 6:
+                // TODO Exit
+                break;
+        }
+        
+    
 }
 
 int main(void)
 {
     main_menu_display();
-    
-
     return EXIT_SUCCESS;
 }
