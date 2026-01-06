@@ -1,7 +1,9 @@
 Task
-Add product
-View all product
-Search product
-Update product detail
-Delete certain product
+Add product checked WB
+View all product RB
+Search product RB
+Update product detail WB
+Delete certain product RB/WB
 Save /Exit
+
+CFLAGS = -Wall -Wextra -Wpedantic -Werror=implicit-function-declaration -Isrc
