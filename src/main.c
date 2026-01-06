@@ -46,12 +46,12 @@ void main_menu_display(void)
     }
     // printf("%hu\n", user_choice);
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
-    // add_product();
+    add_product();
 }
 
 int main(void)
 {
-    // main_menu_display();
+    main_menu_display();
 
     return EXIT_SUCCESS;
 }

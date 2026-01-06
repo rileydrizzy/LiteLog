@@ -43,7 +43,7 @@ int add_product(char *filename)
     }
 
     puts("Enter Product Name:");
-    if (fgets(new_product.name, sizeof(new_product.name), stdin) != EOF){
+    if (fgets(new_product.name, sizeof(new_product.name), stdin) != NULL){
             printf("Product ID: %s\n", ptr->name);
         }
 
@@ -61,11 +61,12 @@ int add_product(char *filename)
         }
     }
     // TODO Write data into file
-    FILE *file = fopen(filename, 'wb');
+    FILE *file = fopen(filename, "wb");
     if (!file){
         // TODO Handle file error 
     }
     fwrite(&ptr, sizeof(Product), 1, file);
-    
+    fclose(file);
+    puts("Done");
     return EXIT_SUCCESS;
 }
