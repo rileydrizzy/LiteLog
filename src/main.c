@@ -39,37 +39,40 @@ void main_menu_display(void)
     printf("5. Delete a product from the Inventory \n");
     printf("6. Exit \n");
     printf(RED BOLD " ENTER OPTION \n" RESET);
-        
-    if (fgets(user_input, sizeof(user_input), stdin) != NULL){
-        if (sscanf(user_input, "%hu", &user_choice) !=EOF){
-            if (user_choice <= 0 || user_choice >= 7){}
+
+    if (fgets(user_input, sizeof(user_input), stdin) != NULL)
+    {
+        if (sscanf(user_input, "%hu", &user_choice) != EOF)
+        {
+            if (user_choice <= 0 || user_choice >= 7)
+            {
+            }
         }
     }
-    
+
     // TODO MAKE USE OF CASE TO SWITCH LOGIC
-        // printf("%hu\n", user_choice);
-        switch(user_choice){
-            case 1:
-                add_product(FILENAME);
-                break;
-            case 2:
-                read_test(FILENAME);
-                break;
-            case 3:
-                // TODO Search
-                break;
-            case 4:
-                // TODO Update
-                break;
-            case 5:
-                // TODO Delete
-                break;
-            case 6:
-                // TODO Exit
-                break;
-        }
-        
-    
+    // printf("%hu\n", user_choice);
+    switch (user_choice)
+    {
+    case 1:
+        add_product(FILENAME);
+        break;
+    case 2:
+        view_all(FILENAME);
+        break;
+    case 3:
+        // TODO Search
+        break;
+    case 4:
+        // TODO Update
+        break;
+    case 5:
+        // TODO Delete
+        break;
+    case 6:
+        // TODO Exit
+        break;
+    }
 }
 
 int main(void)
