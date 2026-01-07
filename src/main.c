@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "util.h"
 #include "def.h"
+#include <stdbool.h>
 
 #define BLUE "\033[34m"
 #define BOLD "\033[1m"
@@ -49,8 +50,6 @@ void main_menu_display(void)
             }
         }
     }
-
-    // TODO MAKE USE OF CASE TO SWITCH LOGIC
     // printf("%hu\n", user_choice);
     switch (user_choice)
     {
@@ -71,12 +70,15 @@ void main_menu_display(void)
         break;
     case 6:
         // TODO Exit
+        exit(EXIT_SUCCESS);
         break;
     }
 }
 
 int main(void)
 {
-    main_menu_display();
+    do {
+        main_menu_display();
+    }while (true);
     return EXIT_SUCCESS;
 }
