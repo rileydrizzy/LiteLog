@@ -7,7 +7,7 @@
  *
  * @version 0.1
  * @date 01-01-2026
- * * @copyright Copyright (c) 2026
+ * @copyright Copyright (c) 2026
  * */
 
 #include <stdlib.h>
@@ -61,6 +61,7 @@ void main_menu_display(void)
         break;
     case 3:
         // TODO Search
+        search_all(FILENAME);
         break;
     case 4:
         // TODO Update

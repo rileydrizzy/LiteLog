@@ -17,4 +17,6 @@ int read(char *filename);
 
 int view_all(char *filename);
 
+int search_all(char *filename);
+
 #endif

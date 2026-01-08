@@ -1,6 +1,7 @@
 #include "util.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "def.h"
 
 void print_product(Product *ptr)
@@ -82,4 +83,53 @@ int view_all(char *filename)
     }
     fclose(file);
     return EXIT_SUCCESS;
+}
+
+FILE *open_file(char *filename)
+{
+    FILE *file = fopen(filename, "rb+");
+    if (!file)
+    { // Handle error
+        perror("Error");
+        return NULL;
+    }
+    return file;
+}
+
+int search_all(char *filename) // FILE *file_ptr)
+{
+    char BUFFER[60];
+    Product data;
+    int target;
+    bool found = false;
+    fgets(BUFFER, sizeof(BUFFER), stdin);
+    sscanf(BUFFER, "%d", &target);
+    FILE *file_ptr = open_file(filename);
+    while (!found)
+    {
+        if (fread(&data, sizeof(Product), 1, file_ptr) == 1)
+        {
+            if (data.product_id == target)
+            {
+                puts("Found");
+                found = true;
+                print_product(&data);
+            }
+        }
+        else
+        {
+            puts("Not Found");
+            break;
+        }
+    }
+    fclose(file_ptr);
+    return EXIT_SUCCESS;
+}
+
+int update_product(Product *DAT, FILE *file_ptr)
+{
+
+    fseek(file_ptr, -sizeof(Product), SEEK_CUR);
+    if (fwrite(&DAT, sizeof(Product), 1, file_ptr) == 1)
+        return EXIT_SUCCESS;
 }
