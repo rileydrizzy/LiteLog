@@ -16,10 +16,10 @@
 #include "def.h"
 #include <stdbool.h>
 
-char FILENAME[] = "inventory.dat";
+const char *FILENAME = "inventory.dat";
 char BUFFER[60];
 Product ITEM;
-unsigned short user_choice;
+int user_choice;
 
 
 void main_menu_display(void)
@@ -39,7 +39,7 @@ void main_menu_display(void)
 
     if (fgets(user_input, sizeof(user_input), stdin) != NULL)
     {
-        if (sscanf(user_input, "%hu", &user_choice) != EOF)
+        if (sscanf(user_input, "%d", &user_choice) != EOF)
         {
             if (user_choice <= 0 || user_choice >= 7)
             {
@@ -50,17 +50,17 @@ void main_menu_display(void)
     switch (user_choice)
     {
     case 1:
-        add_product(FILENAME);
+        add_product();
         break;
     case 2:
-        view_all(FILENAME);
+        view_all();
         break;
     case 3:
-        // TODO Search
-        search_item(FILENAME);
+        search_product();
         break;
     case 4:
         // TODO Update
+        update_product();
         break;
     case 5:
         // TODO Delete

@@ -1,14 +1,49 @@
 #include "util.h"
-// #include "def.h"
+#include "def.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 // extern char user_input[3];
-extern char FILENAME[] = "inventory.dat";
+extern const char *FILENAME;
 extern char BUFFER[60];
 extern Product ITEM;
-extern unsigned short user_choice;
+extern int user_choice;
+
+
+void get_prod_ID(Product *data_ptr){
+    puts("Enter Product ID:");
+    if (fgets(BUFFER, sizeof(BUFFER), stdin))
+    {
+        if (sscanf(BUFFER, "%d", &data_ptr->product_id) != EOF)
+        {
+            printf("Product ID: %d\n", data_ptr->product_id);
+        }
+    }
+}
+void get_prod_name(Product *data_ptr){
+    puts("Enter Product Name:");
+    if (fgets(data_ptr->name, sizeof(data_ptr->name), stdin) != NULL){
+        printf("Product Name: %s\n", data_ptr->name);
+    }}
+void get_prod_quantity(Product *data_ptr){
+    puts("Enter Product Quantity:");
+    if (fgets(BUFFER, sizeof(BUFFER), stdin)){
+        if (sscanf(BUFFER, "%hd", &data_ptr->quantity) != EOF)
+        {
+            printf("Product ID: %hd\n", data_ptr->quantity);
+        }
+    }}
+void get_prod_price(Product *data_ptr){
+    puts("Enter Product Price:");
+    if (fgets(BUFFER, sizeof(BUFFER), stdin))
+    {
+        if (sscanf(BUFFER, "%f", &data_ptr->price) != EOF)
+        {
+            printf("Product ID: %f\n", data_ptr->price);
+        }
+    }}
 
 void print_product(Product *ptr)
 {
@@ -20,78 +55,36 @@ void print_product(Product *ptr)
 
 int add_product(void)
 {
-    Product *ptr = &ITEM;
-    puts("Enter Product ID:");
-    if (fgets(BUFFER, sizeof(BUFFER), stdin))
-    {
-        if (sscanf(BUFFER, "%d", &ITEM.product_id) != EOF)
-        {
-            printf("Product ID: %d\n", ptr->product_id);
-        }
-    }
-
-    puts("Enter Product Name:");
-    if (fgets(ITEM.name, sizeof(ITEM.name), stdin) != NULL)
-    {
-        printf("Product ID: %s\n", ptr->name);
-    }
-
-    puts("Enter Product Quantity:");
-    // BUFFER[0] = '\0';
-    if (fgets(BUFFER, sizeof(BUFFER), stdin))
-    {
-        if (sscanf(BUFFER, "%hd", &ITEM.quantity) != EOF)
-        {
-            printf("Product ID: %hd\n", ptr->quantity);
-        }
-    }
-    puts("Enter Product Price:");
-    if (fgets(BUFFER, sizeof(BUFFER), stdin))
-    {
-        if (sscanf(BUFFER, "%f", &ITEM.price) != EOF)
-        {
-            printf("Product ID: %f\n", ptr->price);
-        }
-    }
+    get_prod_ID(&ITEM);
+    get_prod_name(&ITEM);
+    get_prod_quantity(&ITEM);
+    get_prod_price(&ITEM);
     // TODO Write data into file
-    FILE *file = fopen(FILENAME, "ab");
-    if (!file)
-    {
-        // Handle error
-        perror("Error");
-        return EXIT_FAILURE;
-    }
-    fwrite(&ITEM, sizeof(Product), 1, file);
-    fclose(file);
+    FILE* file_ptr = open_file(WRITE_MODE);
+    fwrite(&ITEM, sizeof(Product), 1, file_ptr);
+    fclose(file_ptr);
     puts("Done");
-
     return EXIT_SUCCESS;
 }
 
 int view_all(void)
 {
-    FILE *file = fopen(FILENAME, "rb");
-    if (!file)
-    {
-        // Handle error
-        perror("Error");
-        return EXIT_FAILURE;
-    }
+    FILE* file_ptr = open_file(READ_MODE);
     Product data;
     puts("Starting read");
     printf("%-5s %-15s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
     printf("----------------------------------------------------------\n");
-    while (fread(&data, sizeof(Product), 1, file))
+    while (fread(&data, sizeof(Product), 1, file_ptr))
     {
         printf("%-5d %-15s %-10d %-2f \n", data.product_id, data.name, data.quantity, data.price);
     }
-    fclose(file);
+    fclose(file_ptr);
     return EXIT_SUCCESS;
 }
 
-FILE *open_file()
+FILE *open_file(const char* mode)
 {
-    FILE *file = fopen(FILENAME, "rb+");
+    FILE *file = fopen(FILENAME, mode);
     if (!file)
     { // Handle error
         perror("Error");
@@ -99,35 +92,45 @@ FILE *open_file()
     }
     return file;
 }
-
-bool search_item() // FILE *file_ptr)
+void search_product(void){
+    FILE *file_ptr = open_file(READ_MODE);
+    if (search_func(file_ptr)){
+        print_product(&ITEM);
+            } 
+    else{
+        printf("Product Not found \n");
+    }
+    return;
+}
+bool search_func(FILE* file_ptr, ...)
 {
+    va_list args;
+    va_start(args, file_ptr);
+    bool update_mode = va_arg(args,int);
     int target_id;
     bool found = false;
-    printf("Enter the Product ID");
+    printf("Enter the Product ID \n");
     fgets(BUFFER, sizeof(BUFFER), stdin);
     sscanf(BUFFER, "%d", &target_id);
-    FILE *file_ptr = open_file();
     while (fread(&ITEM, sizeof(Product), 1, file_ptr) == 1)
     {
         if (ITEM.product_id == target_id)
         {
-            puts("Found");
+            //puts("Found");
             found = true;
-            return found;
+            if (update_mode)
+                return found;
         }
-    }
-    puts("Not found");
-close_file:
-    fclose(file_ptr);
+    } 
     return found;
 }
 
-int update_product(Product *DAT, FILE *file_ptr)
+// BUG data update wrong
+int update_product_func(Product *data_ptr, FILE *file_ptr)
 {
-
     fseek(file_ptr, -sizeof(Product), SEEK_CUR);
-    if (fwrite(&DAT, sizeof(Product), 1, file_ptr) != 1)
+    // print_product(&ITEM);
+    if (fwrite(data_ptr, sizeof(Product), 1, file_ptr) != 1)
     {
         printf("Unsuccessful");
     }
@@ -136,15 +139,15 @@ int update_product(Product *DAT, FILE *file_ptr)
 }
 
 // TODO ASK THE USER WHAT  THEY WHAT TO UPDATE nAME, Q AND PRICE
-
-void update_menu_display()
+void update_product()
 {
-    bool result = search_item();
+    FILE *file_ptr = open_file(WRITE_MODE);
+    bool result = search_func(file_ptr, 1);
     if (!result)
     {
         return;
     }
-    printf("Enter the number below to select the Product detail \n you want to update");
+    printf("Enter the number below to select the Product detail you want to update \n");
     printf("1. Product Name \n");
     printf("2. Product Quantity \n");
     printf("3. Product Price \n");
@@ -154,33 +157,29 @@ void update_menu_display()
     {
     case 1:
         // Name
-        printf("Enter the Product name");
-        fgets(BUFFER, sizeof(BUFFER), stdin);
-        // ITEM.name =
-        update_product(&ITEM);
+        get_prod_name(&ITEM);
+        update_product_func(&ITEM, file_ptr);
          break;
     case 2:
-        //
+        // Quantity
+        get_prod_quantity(&ITEM);
+        update_product_func(&ITEM,file_ptr);
+        break;
         //printf break;
     case 3:
         // Price
+        get_prod_price(&ITEM);
+        update_product_func(&ITEM,file_ptr);
         break;
-
     default:
         break;
     }
 }
 
+/** void flush(void){
+close_file:
+fclose(file_ptr);
+puts("FILE CLOSED");
 
-
-
-
-    // BUFFER[0] = '\0';
-get_prod_qauntity(Product *data_ptr){
-    if (fgets(BUFFER, sizeof(BUFFER), stdin)){
-        if (sscanf(BUFFER, "%hd", &data_ptr->quantity) != EOF)
-        {
-            printf("Product ID: %hd\n", ptr->quantity);
-        }
-    }
-
+} 
+**/

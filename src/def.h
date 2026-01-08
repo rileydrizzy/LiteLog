@@ -7,7 +7,8 @@
 #define GREEN "\033[32m"
 #define YELLOW "\033[33m"
 #define RED "\033[31m"
-
+#define READ_MODE "rb+"
+#define WRITE_MODE "rb+"  
 /**
  * @brief Represents a single Product in the database.
  */

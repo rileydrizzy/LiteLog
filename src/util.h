@@ -11,18 +11,29 @@
  * return
  */
 
+
+void get_prod_ID(Product *data_ptr);
+
+void get_prod_name(Product *data_ptr);
+
+void get_prod_quantity(Product *data_ptr);
+
+void get_prod_price(Product *data_ptr);
+
 void print_product(Product *ptr);
 
 int add_product(void);
 
 int view_all(void);
 
-FILE *open_file();
+FILE *open_file(const char* mode);
 
-bool search_item();
+void search_product(void);
 
-int update_product(Product *DAT, FILE *file_ptr);
+bool search_func(FILE* file_ptr, ...);
 
-void update_menu_display();
+int update_product_func(Product *DAT, FILE *file_ptr);
+
+void update_product();
 
 #endif
