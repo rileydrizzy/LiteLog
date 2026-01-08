@@ -2,6 +2,8 @@
 #define UTIL_H
 
 #include "def.h"
+#include <stdbool.h>
+#include <stdio.h>
 
 /**
  *
@@ -17,6 +19,8 @@ int read(char *filename);
 
 int view_all(char *filename);
 
-int search_all(char *filename);
+bool search_all(char *filename, Product *data);
+
+int update_product(Product *DAT, FILE *file_ptr);
 
 #endif
