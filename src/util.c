@@ -149,7 +149,7 @@ void update_menu_display()
     printf("2. Product Quantity \n");
     printf("3. Product Price \n");
     fgets(BUFFER, sizeof(BUFFER), stdin);
-    sscanf(BUFFER, "%d", user_choice);
+    sscanf(BUFFER, "%d", &user_choice);
     switch (user_choice)
     {
     case 1:
@@ -161,7 +161,7 @@ void update_menu_display()
          break;
     case 2:
         //
-        Printf break;
+        //printf break;
     case 3:
         // Price
         break;
@@ -176,11 +176,11 @@ void update_menu_display()
 
 
     // BUFFER[0] = '\0';
-    get_prod_qauntity(Product *)
-    if (fgets(BUFFER, sizeof(BUFFER), stdin))
-    {
-        if (sscanf(BUFFER, "%hd", &ITEM.quantity) != EOF)
+get_prod_qauntity(Product *data_ptr){
+    if (fgets(BUFFER, sizeof(BUFFER), stdin)){
+        if (sscanf(BUFFER, "%hd", &data_ptr->quantity) != EOF)
         {
             printf("Product ID: %hd\n", ptr->quantity);
         }
     }
+

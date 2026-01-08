@@ -11,16 +11,18 @@
  * return
  */
 
-int add_product(char *filename);
-
 void print_product(Product *ptr);
 
-int read(char *filename);
+int add_product(void);
 
-int view_all(char *filename);
+int view_all(void);
 
-bool search_all(char *filename, Product *data);
+FILE *open_file();
+
+bool search_item();
 
 int update_product(Product *DAT, FILE *file_ptr);
+
+void update_menu_display();
 
 #endif
