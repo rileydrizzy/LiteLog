@@ -7,6 +7,7 @@
 
 // extern char user_input[3];
 extern const char *FILENAME;
+extern const char *TEMP_FILE;
 extern char BUFFER[60];
 extern Product ITEM;
 extern int user_choice;
@@ -108,8 +109,8 @@ bool search_func(FILE* file_ptr, ...)
     va_list args;
     va_start(args, file_ptr);
     bool update_mode = va_arg(args,int);
-    int target_id;
     bool found = false;
+    int target_id;
     printf("Enter the Product ID \n");
     fgets(BUFFER, sizeof(BUFFER), stdin);
     sscanf(BUFFER, "%d", &target_id);
@@ -179,7 +180,28 @@ void update_product()
 }
 
 
+void delete_product(){
+    FILE *file_ptr = open_file(READ_MODE);
+    bool result = search_func(file_ptr, 0);
+    if (!result)
+    {
+        printf("No Product with ID \n");
+        return;
+    }
+    Product temp_data;
+    FILE* temp_file = open_file(WRITE_MODE);
+    while(fread(&temp_data, sizeof(Product), 1, file_ptr)){
+        if (ITEM.product_id != temp_data.product_id){
+        fwrite(&ITEM, sizeof(Product), 1, temp_file);
+        }}
+    fclose(temp_file);
+    fclose(file_ptr);
+    //remove(FILENAME);
+    //rename(TEMP_FILE, FILENAME);
+    return;
+}
 
+    
 /** void flush(void){
 user_choice = 0;
 BUFFER = "\0";

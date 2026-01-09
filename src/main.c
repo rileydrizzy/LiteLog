@@ -17,6 +17,7 @@
 #include <stdbool.h>
 
 const char *FILENAME = "inventory.dat";
+const char *TEMP_FILE = "temp.dat";
 char BUFFER[60];
 Product ITEM;
 int user_choice;
@@ -43,10 +44,10 @@ void main_menu_display(void)
         {
             if (user_choice <= 0 || user_choice >= 7)
             {
+                printf("The number you input is not part of the option \n. Try again \n");
             }
         }
     }
-    // printf("%hu\n", user_choice);
     switch (user_choice)
     {
     case 1:
@@ -59,14 +60,13 @@ void main_menu_display(void)
         search_product();
         break;
     case 4:
-        // TODO Update
         update_product();
         break;
     case 5:
         // TODO Delete
+        delete_product();
         break;
     case 6:
-        // TODO Exit
         exit(EXIT_SUCCESS);
         break;
     }

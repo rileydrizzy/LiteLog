@@ -36,4 +36,6 @@ int update_product_func(Product *DAT, FILE *file_ptr);
 
 void update_product();
 
+void delete_product();
+
 #endif
