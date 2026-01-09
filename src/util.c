@@ -71,7 +71,6 @@ int view_all(void)
 {
     FILE* file_ptr = open_file(READ_MODE);
     Product data;
-    puts("Starting read");
     printf("%-5s %-15s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
     printf("----------------------------------------------------------\n");
     while (fread(&data, sizeof(Product), 1, file_ptr))
@@ -85,11 +84,13 @@ int view_all(void)
 FILE *open_file(const char* mode)
 {
     FILE *file = fopen(FILENAME, mode);
-    if (!file)
+    if (file == NULL)
     { // Handle error
-        perror("Error");
-        return NULL;
-    }
+        printf("File '%s' is not found. Creating a new one...\n", FILENAME);
+        file = fopen(FILENAME, WRITE_MODE);
+        fclose(file);
+        file = fopen(FILENAME, mode);
+        }
     return file;
 }
 void search_product(void){
@@ -141,10 +142,11 @@ int update_product_func(Product *data_ptr, FILE *file_ptr)
 // TODO ASK THE USER WHAT  THEY WHAT TO UPDATE nAME, Q AND PRICE
 void update_product()
 {
-    FILE *file_ptr = open_file(WRITE_MODE);
+    FILE *file_ptr = open_file(UPDATE_MODE);
     bool result = search_func(file_ptr, 1);
     if (!result)
     {
+        printf("No Product with ID \n");
         return;
     }
     printf("Enter the number below to select the Product detail you want to update \n");
@@ -176,10 +178,13 @@ void update_product()
     }
 }
 
+
+
 /** void flush(void){
-close_file:
+user_choice = 0;
+BUFFER = "\0";
+memset(ITEM)
 fclose(file_ptr);
 puts("FILE CLOSED");
-
 } 
 **/

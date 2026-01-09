@@ -3,7 +3,7 @@ CC = gcc
 
 CCFLAGS =  -Wall -Wextra -Wpedantic
 
-SRC = src/main.c src/util.c 
+SRC = src/main.c src/util.c src/def.h
 
 PROGRAM = litelog
 

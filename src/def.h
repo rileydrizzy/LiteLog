@@ -7,8 +7,10 @@
 #define GREEN "\033[32m"
 #define YELLOW "\033[33m"
 #define RED "\033[31m"
-#define READ_MODE "rb+"
-#define WRITE_MODE "rb+"  
+#define READ_MODE "rb"
+#define WRITE_MODE "ab+"  
+#define UPDATE_MODE "rb+"
+
 /**
  * @brief Represents a single Product in the database.
  */
@@ -20,12 +22,14 @@ typedef struct
 	float price;	///< Price of the Product
 } Product;
 
-typedef enum
+/**
+* @brief
+*
+*/
+typedef struct
 {
-	id,
-	name,
-	quantity,
-	price,
-} product_index;
+	int total_no_prod; ///< Total Number of Product in the Inventory
+	int total_val; ///< Total 
+} Total;
 
 #endif
