@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>
+#include <string.h>
 
 // extern char user_input[3];
 extern const char *FILENAME;
@@ -12,8 +13,8 @@ extern char BUFFER[60];
 extern Product ITEM;
 extern int user_choice;
 
-
-void get_prod_ID(Product *data_ptr){
+void get_prod_ID(Product *data_ptr)
+{
     puts("Enter Product ID:");
     if (fgets(BUFFER, sizeof(BUFFER), stdin))
     {
@@ -23,20 +24,30 @@ void get_prod_ID(Product *data_ptr){
         }
     }
 }
-void get_prod_name(Product *data_ptr){
+
+void get_prod_name(Product *data_ptr)
+{
     puts("Enter Product Name:");
-    if (fgets(data_ptr->name, sizeof(data_ptr->name), stdin) != NULL){
+    if (fgets(data_ptr->name, sizeof(data_ptr->name), stdin) != NULL)
+    {
         printf("Product Name: %s\n", data_ptr->name);
-    }}
-void get_prod_quantity(Product *data_ptr){
+    }
+}
+
+void get_prod_quantity(Product *data_ptr)
+{
     puts("Enter Product Quantity:");
-    if (fgets(BUFFER, sizeof(BUFFER), stdin)){
+    if (fgets(BUFFER, sizeof(BUFFER), stdin))
+    {
         if (sscanf(BUFFER, "%hd", &data_ptr->quantity) != EOF)
         {
             printf("Product ID: %hd\n", data_ptr->quantity);
         }
-    }}
-void get_prod_price(Product *data_ptr){
+    }
+}
+
+void get_prod_price(Product *data_ptr)
+{
     puts("Enter Product Price:");
     if (fgets(BUFFER, sizeof(BUFFER), stdin))
     {
@@ -44,7 +55,8 @@ void get_prod_price(Product *data_ptr){
         {
             printf("Product ID: %f\n", data_ptr->price);
         }
-    }}
+    }
+}
 
 void print_product(Product *ptr)
 {
@@ -54,14 +66,19 @@ void print_product(Product *ptr)
     printf("%-5d %-25s %-5d %-2f \n", ptr->product_id, ptr->name, ptr->quantity, ptr->price);
 }
 
+void print_total(Total *ptr)
+{
+    printf("Total %d, Total Price %f", ptr->total_no_prod, ptr->total_val);
+    return;
+}
+
 int add_product(void)
 {
     get_prod_ID(&ITEM);
     get_prod_name(&ITEM);
     get_prod_quantity(&ITEM);
     get_prod_price(&ITEM);
-    // TODO Write data into file
-    FILE* file_ptr = open_file(WRITE_MODE);
+    FILE *file_ptr = open_file(FILENAME, WRITE_MODE);
     fwrite(&ITEM, sizeof(Product), 1, file_ptr);
     fclose(file_ptr);
     puts("Done");
@@ -70,45 +87,55 @@ int add_product(void)
 
 int view_all(void)
 {
-    FILE* file_ptr = open_file(READ_MODE);
+    FILE *file_ptr = open_file(FILENAME, READ_MODE);
     Product data;
+    Total TOL;
     printf("%-5s %-15s %-10s %-10s \n", "|ID|", "|Product Name|", "|Product Quantity|", "|Product Price|");
     printf("----------------------------------------------------------\n");
     while (fread(&data, sizeof(Product), 1, file_ptr))
     {
+        TOL.total_no_prod += 1;
+        TOL.total_val += data.price;
         printf("%-5d %-15s %-10d %-2f \n", data.product_id, data.name, data.quantity, data.price);
     }
+    print_total(&TOL);
+    memset(&TOL, 0, sizeof(Total));
     fclose(file_ptr);
     return EXIT_SUCCESS;
 }
 
-FILE *open_file(const char* mode)
+FILE *open_file(const char *filename, const char *mode)
 {
-    FILE *file = fopen(FILENAME, mode);
+    FILE *file = fopen(filename, mode);
     if (file == NULL)
     { // Handle error
-        printf("File '%s' is not found. Creating a new one...\n", FILENAME);
-        file = fopen(FILENAME, WRITE_MODE);
+        printf("File '%s' is not found. Creating a new one...\n", filename);
+        file = fopen(filename, WRITE_MODE);
         fclose(file);
-        file = fopen(FILENAME, mode);
-        }
+        file = fopen(filename, mode);
+    }
     return file;
 }
-void search_product(void){
-    FILE *file_ptr = open_file(READ_MODE);
-    if (search_func(file_ptr)){
+
+void search_product(void)
+{
+    FILE *file_ptr = open_file(FILENAME, READ_MODE);
+    if (search_func(file_ptr))
+    {
         print_product(&ITEM);
-            } 
-    else{
+    }
+    else
+    {
         printf("Product Not found \n");
     }
     return;
 }
-bool search_func(FILE* file_ptr, ...)
+
+bool search_func(FILE *file_ptr, ...)
 {
     va_list args;
     va_start(args, file_ptr);
-    bool update_mode = va_arg(args,int);
+    bool update_mode = va_arg(args, int);
     bool found = false;
     int target_id;
     printf("Enter the Product ID \n");
@@ -118,16 +145,14 @@ bool search_func(FILE* file_ptr, ...)
     {
         if (ITEM.product_id == target_id)
         {
-            //puts("Found");
+            // puts("Found");
             found = true;
-            if (update_mode)
-                return found;
+            break;
         }
-    } 
+    }
     return found;
 }
 
-// BUG data update wrong
 int update_product_func(Product *data_ptr, FILE *file_ptr)
 {
     fseek(file_ptr, -sizeof(Product), SEEK_CUR);
@@ -140,10 +165,9 @@ int update_product_func(Product *data_ptr, FILE *file_ptr)
     return EXIT_SUCCESS;
 }
 
-// TODO ASK THE USER WHAT  THEY WHAT TO UPDATE nAME, Q AND PRICE
-void update_product()
+void update_product(void)
 {
-    FILE *file_ptr = open_file(UPDATE_MODE);
+    FILE *file_ptr = open_file(FILENAME, UPDATE_MODE);
     bool result = search_func(file_ptr, 1);
     if (!result)
     {
@@ -162,51 +186,56 @@ void update_product()
         // Name
         get_prod_name(&ITEM);
         update_product_func(&ITEM, file_ptr);
-         break;
+        break;
     case 2:
         // Quantity
         get_prod_quantity(&ITEM);
-        update_product_func(&ITEM,file_ptr);
+        update_product_func(&ITEM, file_ptr);
         break;
-        //printf break;
+        // printf break;
     case 3:
         // Price
         get_prod_price(&ITEM);
-        update_product_func(&ITEM,file_ptr);
+        update_product_func(&ITEM, file_ptr);
         break;
     default:
         break;
     }
 }
 
-
-void delete_product(){
-    FILE *file_ptr = open_file(READ_MODE);
+void delete_product(void)
+{
+    FILE *file_ptr = open_file(FILENAME, READ_MODE);
     bool result = search_func(file_ptr, 0);
+    fclose(file_ptr);
     if (!result)
     {
         printf("No Product with ID \n");
         return;
     }
     Product temp_data;
-    FILE* temp_file = open_file(WRITE_MODE);
-    while(fread(&temp_data, sizeof(Product), 1, file_ptr)){
-        if (ITEM.product_id != temp_data.product_id){
-        fwrite(&ITEM, sizeof(Product), 1, temp_file);
-        }}
+    FILE *temp_file = open_file(TEMP_FILE, WRITE_MODE);
+    file_ptr = open_file(FILENAME, READ_MODE);
+    while (fread(&temp_data, sizeof(Product), 1, file_ptr) == 1)
+    {
+        if (ITEM.product_id != temp_data.product_id)
+        {
+            fwrite(&temp_data, sizeof(Product), 1, temp_file);
+        }
+    }
     fclose(temp_file);
     fclose(file_ptr);
-    //remove(FILENAME);
-    //rename(TEMP_FILE, FILENAME);
+    remove(FILENAME);
+    rename(TEMP_FILE, FILENAME);
     return;
 }
 
-    
 /** void flush(void){
 user_choice = 0;
 BUFFER = "\0";
 memset(ITEM)
 fclose(file_ptr);
 puts("FILE CLOSED");
-} 
+}
+new here
 **/

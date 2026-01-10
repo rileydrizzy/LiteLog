@@ -29,7 +29,7 @@ typedef struct
 typedef struct
 {
 	int total_no_prod; ///< Total Number of Product in the Inventory
-	int total_val; ///< Total 
+	float total_val; ///< Total 
 } Total;
 
 #endif

@@ -63,7 +63,6 @@ void main_menu_display(void)
         update_product();
         break;
     case 5:
-        // TODO Delete
         delete_product();
         break;
     case 6:
