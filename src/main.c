@@ -12,16 +12,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "util.h"
 #include "def.h"
-#include <stdbool.h>
 
 const char *FILENAME = "inventory.dat";
 const char *TEMP_FILE = "temp.dat";
-char BUFFER[60];
+char BUFFER[30];
 Product ITEM;
 int user_choice;
-
 
 void main_menu_display(void)
 {
@@ -34,7 +33,7 @@ void main_menu_display(void)
     printf("2. View all product \n");
     printf("3. Search for a product \n");
     printf("4. Update product details \n");
-    printf("5. Delete a product from the Inventory \n");
+    printf("5. Delete a product \n");
     printf("6. Exit \n");
     printf(RED BOLD " ENTER OPTION \n" RESET);
 

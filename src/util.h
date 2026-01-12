@@ -19,15 +19,18 @@ void get_prod_ID(Product *data_ptr);
  * return
  */
 
+void get_clean_input(void);
 void get_prod_name(Product *data_ptr);
 
 void get_prod_quantity(Product *data_ptr);
 
 void get_prod_price(Product *data_ptr);
 
-void print_product(Product *ptr);
+void print_table_header(void);
 
-void print_total(Total *ptr);
+void print_product_row(Product *ptr);
+
+void print_table_footer(Total *ptr);
 
 int add_product(void);
 
@@ -37,12 +40,14 @@ FILE *open_file(const char *filename, const char *mode);
 
 void search_product(void);
 
-bool search_func(FILE* file_ptr, ...);
+bool search_func(FILE *file_ptr, ...);
 
 int update_product_func(Product *DAT, FILE *file_ptr);
 
 void update_product(void);
 
 void delete_product(void);
+
+void clean_up(void);
 
 #endif

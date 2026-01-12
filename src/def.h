@@ -11,14 +11,20 @@
 #define WRITE_MODE "ab+"  
 #define UPDATE_MODE "rb+"
 
+
+#define W_ID 6
+#define W_NAME 20
+#define W_QTY 10
+#define W_PRICE 10
+
 /**
  * @brief Represents a single Product in the database.
  */
 typedef struct
 {
 	int product_id; ///< Unique Product ID number
-	char name[50];	///< Product Name
-	short quantity; ///< Quantity of the Product available
+	char name[30];	///< Product Name
+	int quantity; ///< Quantity of the Product available
 	float price;	///< Price of the Product
 } Product;
 

@@ -1,9 +1,9 @@
 # Makefile for compiling C code using the Clang compiler
-CC = gcc
+CC = clang
 
 CCFLAGS =  -Wall -Wextra -Wpedantic
 
-SRC = src/main.c src/util.c src/def.h
+SRC = src/main.c src/util.c
 
 PROGRAM = litelog
 
