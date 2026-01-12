@@ -1,10 +1,10 @@
 /**
  * @file main.c
  * @author Ladipo Ipadeola
- * @brief
- *
- *
- *
+ * @brief This is the main file for the inventory management system. This file contains the main function and the main menu display function.
+ * This program is a simple inventory management system that allows users to add, view, search, update and delete products.
+ * The program uses a binary file to store the products.
+ * The program is written in C and uses the standard library functions.
  * @version 0.1
  * @date 01-01-2026
  * @copyright Copyright (c) 2026
@@ -22,6 +22,13 @@ char BUFFER[30];
 Product ITEM;
 int user_choice;
 
+
+/**
+* @brief This function displays the main menu of the program.
+* @param void
+* @return void
+* @note This function is called in the main function.
+*/
 void main_menu_display(void)
 {
     char user_input[3];
