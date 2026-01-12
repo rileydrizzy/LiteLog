@@ -16,6 +16,7 @@ void get_clean_input(void)
 {
     if (fgets(BUFFER, sizeof(BUFFER), stdin))
     {
+        // Checked if the input is larger than the Buffer
         char *p = strchr(BUFFER, '\n');
         if (p)
         {
@@ -41,12 +42,12 @@ void get_prod_ID(Product *data_ptr)
     }
 }
 
+// BUG Product name not saved
 void get_prod_name(Product *data_ptr)
 {
     puts("Enter the Product Name:");
     get_clean_input();
-    //sscanf(BUFFER, "%s", &data_ptr->name);
-    
+    snprintf(data_ptr->name, sizeof(data_ptr->name), "%s", BUFFER);
     printf("Product Name: %s \n", data_ptr->name);
 }
 
@@ -69,7 +70,6 @@ void get_prod_price(Product *data_ptr)
         printf("Product ID: %.2f \n", data_ptr->price);
     }
 }
-
 
 void print_table_header(void)
 {
