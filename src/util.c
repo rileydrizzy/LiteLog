@@ -1,3 +1,12 @@
+/**
+* @file util.c
+     * @author Ladipo Ipadeola
+     * @brief This file contains the utility functions for the inventory management system.
+     * @version 0.1
+     * @date 01-01-2026
+     * @copyright Copyright (c) 2026
+     */
+
 #include "util.h"
 #include "def.h"
 #include <stdlib.h>
@@ -5,6 +14,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <string.h>
+
 
 extern const char *FILENAME;
 extern const char *TEMP_FILE;
@@ -42,7 +52,7 @@ void get_prod_ID(Product *data_ptr)
     }
 }
 
-// BUG Product name not saved
+
 void get_prod_name(Product *data_ptr)
 {
     puts("Enter the Product Name:");
@@ -281,4 +291,15 @@ void clean_up(void)
     memset(BUFFER, 0, sizeof(BUFFER));
     memset(&ITEM, 0, sizeof(Product));
     return;
+}
+
+
+int check_prod_id_avail(int id){
+    FILE *file_ptr = open_file(FILENAME, READ_MODE);
+    bool result = search_func(file_ptr, 0);
+    fclose(file_ptr);
+    if (result){
+        return 1;
+    }
+    return 0;
 }
