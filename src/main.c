@@ -16,6 +16,7 @@
 #include "util.h"
 #include "def.h"
 
+// Global Variables
 const char *FILENAME = "inventory.dat";
 const char *TEMP_FILE = "temp.dat";
 char BUFFER[30];
