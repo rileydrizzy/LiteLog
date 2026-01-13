@@ -1,4 +1,4 @@
-LiteLog — Minimal Inventory Manager
+# LiteLog — Minimal Inventory Manager
 
 LiteLog is a small command-line inventory management program written in C. It provides a compact example of a file-backed inventory database (binary format) and a simple text menu for adding, viewing, searching, updating, and deleting products.
 
