@@ -1,11 +1,11 @@
 /**
-* @file util.c
-     * @author Ladipo Ipadeola
-     * @brief This file contains the utility functions for the inventory management system.
-     * @version 0.1
-     * @date 01-01-2026
-     * @copyright Copyright (c) 2026
-     */
+ * @file util.c
+ * @author Ladipo Ipadeola
+ * @brief This file contains the utility functions for the inventory management system.
+ * @version 0.1
+ * @date 01-01-2026
+ * @copyright Copyright (c) 2026
+ */
 
 #include "util.h"
 #include "def.h"
@@ -14,7 +14,6 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <string.h>
-
 
 extern const char *FILENAME;
 extern const char *TEMP_FILE;
@@ -51,7 +50,6 @@ void get_prod_ID(Product *data_ptr)
         printf("Product ID: %d \n", data_ptr->product_id);
     }
 }
-
 
 void get_prod_name(Product *data_ptr)
 {
@@ -293,12 +291,13 @@ void clean_up(void)
     return;
 }
 
-
-int check_prod_id_avail(int id){
+int check_prod_id_avail(int id)
+{
     FILE *file_ptr = open_file(FILENAME, READ_MODE);
     bool result = search_func(file_ptr, 0);
     fclose(file_ptr);
-    if (result){
+    if (result)
+    {
         return 1;
     }
     return 0;
