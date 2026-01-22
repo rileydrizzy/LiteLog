@@ -16,136 +16,164 @@
 #include <stdio.h>
 
 /**
-* @brief This function gets the user input and cleans it up.
-* it removes the newline character and any extra characters.
-* and also checks if the input is larger than the buffer.
-* @param void
-* @return void
-*/
-
+ * @brief Gets user input and cleans it up.
+ * 
+ * Reads a line from stdin into the global BUFFER.
+ * It removes the trailing newline character and flushes stdin if the input
+ * exceeds the buffer size.
+ */
 void get_clean_input(void);
 
 /**
-* @brief This function gets the product ID from the user.
-* @param data_ptr A pointer to the Product structure.
-* @return void
-* @note This function is called in the add_product function.
+ * @brief Prompts the user for the Product ID.
+ * 
+ * Reads the ID from standard input and stores it in the provided Product structure.
+ * 
+ * @param data_ptr A pointer to the Product structure.
  */
-
 void get_prod_ID(Product *data_ptr);
 
 /**
-* @brief This function gets the product name from the user.
-* @param data_ptr A pointer to the Product structure.
-* @return void
-* @note This function is called in the add_product function.
-*/
-
+ * @brief Prompts the user for the Product Name.
+ * 
+ * Reads the name from standard input and stores it in the provided Product structure.
+ * 
+ * @param data_ptr A pointer to the Product structure.
+ */
 void get_prod_name(Product *data_ptr);
 
 /**
-	* @brief This function gets the product quantity from the user.
-	* @param data_ptr A pointer to the Product structure.
-	* @return void
-	* @note This function is called in the add_product function.
-	*/
+ * @brief Prompts the user for the Product Quantity.
+ * 
+ * Reads the quantity from standard input and stores it in the provided Product structure.
+ * 
+ * @param data_ptr A pointer to the Product structure.
+ */
 void get_prod_quantity(Product *data_ptr);
 
 /**
-	* @brief This function gets the product price from the user.
-	* @param data_ptr A pointer to the Product structure.
-	* @return void
-	* @note This function is called in the add_product function.
-	*/
-
+ * @brief Prompts the user for the Product Price.
+ * 
+ * Reads the price from standard input and stores it in the provided Product structure.
+ * 
+ * @param data_ptr A pointer to the Product structure.
+ */
 void get_prod_price(Product *data_ptr);
 
 /**
-	* @brief This function prints the table header.
-	* This includes the column names and the table borders.
-	* Width of the columns are defined in the def.h file.
-	* @param void
-	* @return void
-*/
+ * @brief Prints the table header.
+ * 
+ * Displays the column names (ID, Name, Quantity, Price) and the top border of the table.
+ * Column widths are defined in def.h.
+ */
 void print_table_header(void);
 
 /**
-	* @brief This function prints the product row.
-	* This includes the product ID, name, quantity and price.
-	* Width of the columns are defined in the def.h file.
-	* @param ptr A pointer to the Product structure.
-	* @return void
-	*/
+ * @brief Prints a single product row.
+ * 
+ * Displays the details of a product formatted within the table columns.
+ * 
+ * @param ptr A pointer to the Product structure containing the data to print.
+ */
 void print_product_row(Product *ptr);
 
 /**
-	* @brief This function prints the table divider.
-	* This includes the table borders.
-	* Width of the columns are defined in the def.h file.
-	* @param void
-	* @return void
-	*/
+ * @brief Prints a table divider line.
+ * 
+ * Used to separate headers, rows, or footers in the table output.
+ */
 void print_table_divider(void);
 
 /**
-	* @brief This function prints the table footer.
-	* This includes the total number of products and the total value of the products.
-	* Width of the columns are defined in the def.h file.
-	* @param ptr A pointer to the Total structure.
-		* @return void
-	*/
+ * @brief Prints the table footer with totals.
+ * 
+ * Displays the total number of products and the total value of the inventory.
+ * 
+ * @param ptr A pointer to the Total structure containing the calculated totals.
+ */
 void print_table_footer(Total *ptr);
 
 /**
-	* @brief This function adds a new product to the inventory.
-	* @param void
-	* @return int EXIT_SUCCESS if the product is added successfully.
-	*/
-
+ * @brief Adds a new product to the inventory.
+ * 
+ * Prompts the user for product details and appends the new record to the file.
+ * 
+ * @return int EXIT_SUCCESS on success.
+ */
 int add_product(void);
 
 /**
-	* @brief This function views all the products in the inventory.
-	* @param void
-	* @return int EXIT_SUCCESS if the products are viewed successfully.
-	*/
+ * @brief Views all products in the inventory.
+ * 
+ * Reads the inventory file and displays all products in a formatted table.
+ * Also calculates and displays totals.
+ * 
+ * @return int EXIT_SUCCESS on success.
+ */
 int view_all(void);
 
 /**
-	* @brief This function opens a file.
-	* @param filename A pointer to the file name.
-	* @param mode A pointer to the file mode.
-	* @return FILE* A pointer to the file.
-	*/
+ * @brief Opens a file with the specified mode.
+ * 
+ * If the file does not exist and is opened for reading, it attempts to create it.
+ * 
+ * @param filename The name of the file to open.
+ * @param mode The mode string (e.g., "rb", "ab+").
+ * @return FILE* A pointer to the opened file stream, or NULL on failure.
+ */
 FILE *open_file(const char *filename, const char *mode);
 
 /**
-	* @brief This function searches for a product in the inventory.
-	* @param void	
-	* @return void
-	*/
+ * @brief Searches for a product and displays it.
+ * 
+ * Uses search_func to find a product by ID and prints the result in a table format.
+ */
 void search_product(void);
 
 /**
-	* @brief This performs the search operation on the file.
-	* @param file_ptr A pointer to the file.
-	* @return bool true if the product is found, false otherwise.
-	*/
-bool search_func(FILE *file_ptr, ...);
+ * @brief Performs the search operation on the file.
+ * 
+ * Prompts the user for a Product ID, then scans the file for a matching record.
+ * Populates the global ITEM variable if found.
+ * 
+ * @param file_ptr A pointer to the open file stream.
+ * @return true if the product is found, false otherwise.
+ */
+bool search_func(FILE *file_ptr);
 
-// TODO: Add documentation for this function
-/**	
-	* @brief This function updates the product details.
-	* @param DAT A pointer to the Product structure.
-	* @param file_ptr A pointer to the file.
-	* @return int EXIT_SUCCESS if the product is updated successfully.
-	*/
-int update_product_func(Product *DAT, FILE *file_ptr);
+/**
+ * @brief Updates the product details in the file.
+ * 
+ * Moves the file pointer back to the beginning of the current record and
+ * overwrites it with the updated data.
+ * 
+ * @param data_ptr A pointer to the Product structure containing updated info.
+ * @param file_ptr A pointer to the file stream (must be in update mode).
+ * @return int EXIT_SUCCESS on success.
+ */
+int update_product_func(Product *data_ptr, FILE *file_ptr);
 
+/**
+ * @brief Orchestrates the product update process.
+ * 
+ * Prompts for an ID, searches for the product, and allows the user to
+ * update specific fields (Name, Quantity, Price).
+ */
 void update_product(void);
 
+/**
+ * @brief Deletes a product from the inventory.
+ * 
+ * Prompts for an ID. If found, creates a temporary file with all other products,
+ * then replaces the original file with the temporary one.
+ */
 void delete_product(void);
 
+/**
+ * @brief Resets global variables and buffers.
+ * 
+ * Clears the user choice, input buffer, and the global ITEM structure.
+ */
 void clean_up(void);
 
 #endif
