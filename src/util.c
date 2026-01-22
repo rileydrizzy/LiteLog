@@ -184,11 +184,9 @@ void search_product(void)
     return;
 }
 
-bool search_func(FILE *file_ptr, ...)
+bool search_func(FILE *file_ptr)
 {
-    va_list args;
-    va_start(args, file_ptr);
-    bool update_mode = va_arg(args, int);
+
     bool found = false;
     int target_id;
     printf("Enter the Product ID \n");
@@ -220,7 +218,7 @@ int update_product_func(Product *data_ptr, FILE *file_ptr)
 void update_product(void)
 {
     FILE *file_ptr = open_file(FILENAME, UPDATE_MODE);
-    bool result = search_func(file_ptr, 1);
+    bool result = search_func(file_ptr);
     if (!result)
     {
         printf("No Product with ID \n");
@@ -244,7 +242,6 @@ void update_product(void)
         get_prod_quantity(&ITEM);
         update_product_func(&ITEM, file_ptr);
         break;
-        // printf break;
     case 3:
         // Price
         get_prod_price(&ITEM);
@@ -258,7 +255,7 @@ void update_product(void)
 void delete_product(void)
 {
     FILE *file_ptr = open_file(FILENAME, READ_MODE);
-    bool result = search_func(file_ptr, 0);
+    bool result = search_func(file_ptr);
     fclose(file_ptr);
     if (!result)
     {
@@ -285,7 +282,6 @@ void delete_product(void)
 void clean_up(void)
 {
     user_choice = 0;
-    // BUFFER[0] = '\0';
     memset(BUFFER, 0, sizeof(BUFFER));
     memset(&ITEM, 0, sizeof(Product));
     return;
@@ -294,7 +290,7 @@ void clean_up(void)
 int check_prod_id_avail(int id)
 {
     FILE *file_ptr = open_file(FILENAME, READ_MODE);
-    bool result = search_func(file_ptr, 0);
+    bool result = search_func(file_ptr);
     fclose(file_ptr);
     if (result)
     {
