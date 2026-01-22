@@ -23,13 +23,12 @@ char BUFFER[30];
 Product ITEM;
 int user_choice;
 
-
 /**
-* @brief This function displays the main menu of the program.
-* @param void
-* @return void
-* @note This function is called in the main function.
-*/
+ * @brief This function displays the main menu of the program.
+ * @param void
+ * @return void
+ * @note This function is called in the main function.
+ */
 void main_menu_display(void)
 {
     char user_input[3];
@@ -47,6 +46,9 @@ void main_menu_display(void)
 
     if (fgets(user_input, sizeof(user_input), stdin) != NULL)
     {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
         if (sscanf(user_input, "%d", &user_choice) != EOF)
         {
             if (user_choice <= 0 || user_choice >= 7)
