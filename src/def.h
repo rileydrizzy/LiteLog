@@ -55,7 +55,7 @@ typedef struct
 typedef struct
 {
 	int total_no_prod; ///< Total Number of Product in the Inventory
-	float total_val; ///< Total 
+	float total_val; ///< Total Value of the Products
 } Total;
 
 #endif
