@@ -65,7 +65,7 @@ void get_prod_quantity(Product *data_ptr)
     get_clean_input();
     if (sscanf(BUFFER, "%d", &data_ptr->quantity) != EOF)
     {
-        printf("Product ID: %d \n", data_ptr->quantity);
+        printf("Product Quantity: %d \n", data_ptr->quantity);
     }
 }
 
@@ -75,7 +75,7 @@ void get_prod_price(Product *data_ptr)
     get_clean_input();
     if (sscanf(BUFFER, "%f", &data_ptr->price) != EOF)
     {
-        printf("Product ID: %.2f \n", data_ptr->price);
+        printf("Product Price: %.2f \n", data_ptr->price);
     }
 }
 
