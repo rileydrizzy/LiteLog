@@ -13,3 +13,5 @@ $(PROGRAM): $(SRC)
 run:
 	./$(PROGRAM)
 
+debug:
+	$(CC) $(CCFLAGS) -g $(SRC) -o $(PROGRAM)
