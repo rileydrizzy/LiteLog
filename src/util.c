@@ -40,7 +40,7 @@ void get_clean_input(char *out_buffer, int size)
 void get_prod_ID(char *out_buffer, Product *data_ptr)
 {
     puts("Enter the Product ID:");
-    get_clean_input(out_buffer, sizeof(Product));
+    get_clean_input(out_buffer, 5);
     if (sscanf(out_buffer, "%d", &data_ptr->product_id) != EOF)
     {
         printf("Product ID: %d \n", data_ptr->product_id);
@@ -50,7 +50,7 @@ void get_prod_ID(char *out_buffer, Product *data_ptr)
 void get_prod_name(char *out_buffer, Product *data_ptr)
 {
     puts("Enter the Product Name:");
-    get_clean_input(out_buffer, sizeof(Product));
+    get_clean_input(out_buffer, BUFFER_SIZE);
     snprintf(data_ptr->name, sizeof(data_ptr->name), "%s", out_buffer);
     printf("Product Name: %s \n", data_ptr->name);
 }
@@ -58,7 +58,7 @@ void get_prod_name(char *out_buffer, Product *data_ptr)
 void get_prod_quantity(char *out_buffer, Product *data_ptr)
 {
     puts("Enter the Product Quantity:");
-    get_clean_input(out_buffer, sizeof(Product));
+    get_clean_input(out_buffer, BUFFER_SIZE);
     if (sscanf(out_buffer, "%d", &data_ptr->quantity) != EOF)
     {
         printf("Product Quantity: %d \n", data_ptr->quantity);
@@ -68,7 +68,7 @@ void get_prod_quantity(char *out_buffer, Product *data_ptr)
 void get_prod_price(char *out_buffer, Product *data_ptr)
 {
     puts("Enter the Product Price:");
-    get_clean_input(out_buffer, sizeof(Product));
+    get_clean_input(out_buffer, BUFFER_SIZE);
     if (sscanf(out_buffer, "%f", &data_ptr->price) != EOF)
     {
         printf("Product Price: %.2f \n", data_ptr->price);
