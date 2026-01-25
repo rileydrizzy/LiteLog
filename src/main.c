@@ -58,7 +58,7 @@ void main_menu_display(void)
 
         if (sscanf(user_input, "%d", &user_choice) != EOF)
         {
-            if (user_choice <= 0 || user_choice >= 7)
+            if (user_choice <= 0 || user_choice >= MENU_EXIT_OPTION)
             {
                 printf("The number you input is not part of the option \n. Try again \n");
             }

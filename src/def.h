@@ -20,6 +20,7 @@
 #define READ_MODE "rb"
 #define WRITE_MODE "ab+"
 #define UPDATE_MODE "rb+"
+#define MENU_EXIT_OPTION 7
 
 // Width of the columns
 #define W_ID 6
