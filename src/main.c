@@ -30,7 +30,7 @@ void main_menu_display(void)
 {
     char BUFFER[BUFFER_SIZE];
     Product ITEM;
-    char user_input[2];
+    char user_input[3];
     int user_choice = 0;
     printf(BLUE BOLD "==============================\n" RESET);
     printf(GREEN "     WELCOME TO LITELOG MENU \n" RESET);
@@ -60,7 +60,8 @@ void main_menu_display(void)
         {
             if (user_choice <= 0 || user_choice >= MENU_EXIT_OPTION)
             {
-                printf("The number you input is not part of the option \n. Try again \n");
+                printf("The number you input is not part of the option \n");
+                printf("Try again \n");
             }
         }
     }
@@ -82,7 +83,7 @@ void main_menu_display(void)
         delete_product(BUFFER, &ITEM);
         break;
     case 6:
-        exit(EXIT_SUCCESS); // TODO Change break logic
+        exit(EXIT_SUCCESS);
         break;
     }
 }
