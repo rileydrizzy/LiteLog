@@ -13,25 +13,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "util.h"
 #include "def.h"
 
 // Global Variables
 const char *FILENAME = "inventory.dat";
 const char *TEMP_FILE = "temp.dat";
-char BUFFER[30];
-Product ITEM;
-int user_choice;
 
 /**
  * @brief This function displays the main menu of the program.
  * @param void
  * @return void
- * @note This function is called in the main function.
  */
 void main_menu_display(void)
 {
-    char user_input[3];
+    char BUFFER[BUFFER_SIZE];
+    Product ITEM;
+    char user_input[2];
+    int user_choice = 0;
     printf(BLUE BOLD "==============================\n" RESET);
     printf(GREEN "     WELCOME TO LITELOG MENU \n" RESET);
     printf(BLUE BOLD "==============================\n" RESET);
@@ -46,9 +46,16 @@ void main_menu_display(void)
 
     if (fgets(user_input, sizeof(user_input), stdin) != NULL)
     {
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
+        char *p = strchr(user_input, '\n');
+        if (p)
+            *p = '\0';
+        else
+        {
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+        }
+
         if (sscanf(user_input, "%d", &user_choice) != EOF)
         {
             if (user_choice <= 0 || user_choice >= 7)
@@ -60,22 +67,22 @@ void main_menu_display(void)
     switch (user_choice)
     {
     case 1:
-        add_product();
+        add_product(BUFFER, &ITEM);
         break;
     case 2:
-        view_all();
+        view_all(&ITEM);
         break;
     case 3:
-        search_product();
+        search_product(BUFFER, &ITEM);
         break;
     case 4:
-        update_product();
+        update_product(BUFFER, &ITEM);
         break;
     case 5:
-        delete_product();
+        delete_product(BUFFER, &ITEM);
         break;
     case 6:
-        exit(EXIT_SUCCESS);
+        exit(EXIT_SUCCESS); // TODO Change break logic
         break;
     }
 }
