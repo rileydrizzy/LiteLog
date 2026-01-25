@@ -7,7 +7,6 @@
  * @copyright Copyright (c) 2026
  */
 
-
 #ifndef DEF_H
 #define DEF_H
 
@@ -19,7 +18,7 @@
 #define YELLOW "\033[33m"
 #define RED "\033[31m"
 #define READ_MODE "rb"
-#define WRITE_MODE "ab+"  
+#define WRITE_MODE "ab+"
 #define UPDATE_MODE "rb+"
 
 // Width of the columns
@@ -27,6 +26,8 @@
 #define W_NAME 20
 #define W_QTY 10
 #define W_PRICE 10
+
+#define BUFFER_SIZE 30
 
 /**
  * @brief Represents a single Product in the database.
@@ -36,26 +37,26 @@
  * @note The price field is a floating-point number.
  * @note The quantity field is an integer.
  * @note The product_id field is an integer.
-*/
+ */
 typedef struct
 {
-	int product_id; ///< Unique Product ID number
-	char name[30];	///< Product Name
-	int quantity; ///< Quantity of the Product available
-	float price;	///< Price of the Product
+	int product_id;			///< Unique Product ID number
+	char name[BUFFER_SIZE]; ///< Product Name
+	int quantity;			///< Quantity of the Product available
+	float price;			///< Price of the Product
 } Product;
 
 /**
-* @brief
-* This structure holds the total number of products and the total value of the products.
-* It is used to store and retrieve the total number of products and the total value of the products.
-* @note The total_no_prod field is an integer.
-* @note The total_val field is a floating-point number.
-*/
+ * @brief
+ * This structure holds the total number of products and the total value of the products.
+ * It is used to store and retrieve the total number of products and the total value of the products.
+ * @note The total_no_prod field is an integer.
+ * @note The total_val field is a floating-point number.
+ */
 typedef struct
 {
 	int total_no_prod; ///< Total Number of Product in the Inventory
-	float total_val; ///< Total Value of the Products
+	float total_val;   ///< Total Value of the Products
 } Total;
 
 #endif
