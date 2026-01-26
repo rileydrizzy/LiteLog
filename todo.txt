@@ -1,9 +1,0 @@
-Task
-Add product checked WB
-View all product RB
-Search product RB
-Update product detail WB
-Delete certain product RB/WB
-Save /Exit
-
-CCFLAGS = -Wall -Wextra -Wpedantic -Werror=implicit-function-declaration -Isrc
