@@ -187,6 +187,7 @@ void search_product(char *out_buffer, Product *data_ptr)
     {
         printf("Product with the ID not found \n");
     }
+    fclose(file_ptr);
     clean_up(out_buffer, data_ptr);
     return;
 }
@@ -228,6 +229,7 @@ void update_product(char *out_buffer, Product *data_ptr)
     if (!result)
     {
         printf("No Product with ID \n");
+        fclose(file_ptr);
         return;
     }
     printf("Enter the number below to select the Product detail you want to update \n");
