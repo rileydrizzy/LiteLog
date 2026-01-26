@@ -124,15 +124,15 @@ void print_table_footer(Total *ptr)
 int view_all(Product *data_ptr)
 {
     FILE *file_ptr = open_file(FILENAME, READ_MODE);
-    Total TOL = {0}; // TODO Change variable name
+    Total totals = {0};
     print_table_header();
     while (fread(data_ptr, sizeof(Product), 1, file_ptr) >= 1)
     {
         print_product_row(data_ptr);
-        TOL.total_no_prod += 1;
-        TOL.total_val += data_ptr->price;
+        totals.total_no_prod += 1;
+        totals.total_val += data_ptr->price;
     }
-    print_table_footer(&TOL);
+    print_table_footer(&totals);
     fclose(file_ptr);
     clean_up(NULL, data_ptr);
     return EXIT_SUCCESS;

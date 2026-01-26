@@ -26,7 +26,7 @@ const char *TEMP_FILE = "temp.dat";
  * @param void
  * @return void
  */
-void main_menu_display(void)
+void main_menu_display(bool *keep_running)
 {
     char BUFFER[BUFFER_SIZE];
     Product ITEM;
@@ -83,7 +83,7 @@ void main_menu_display(void)
         delete_product(BUFFER, &ITEM);
         break;
     case 6:
-        keep_running = false;
+        *keep_running = false;
         break;
     }
 }
@@ -91,6 +91,9 @@ void main_menu_display(void)
 int main(void)
 {
     bool keep_running = true;
-    while(keep_running){main_menu_display()}
+    while (keep_running)
+    {
+        main_menu_display(&keep_running);
+    }
     return EXIT_SUCCESS;
 }
