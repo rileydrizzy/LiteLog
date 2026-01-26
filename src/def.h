@@ -29,6 +29,7 @@
 #define W_PRICE 10
 
 #define BUFFER_SIZE 30
+#define MAX_ID_DIGITS 5
 
 /**
  * @brief Represents a single Product in the database.
