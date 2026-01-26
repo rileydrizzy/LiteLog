@@ -40,6 +40,7 @@ When started the program shows a numbered menu:
 - Record: `Product` struct (defined in `src/def.h`) contains `product_id`, `name[30]`, `quantity`, and `price`.
 - Input: reading and sanitizing user input is implemented in `src/util.c` to avoid leftover newline and buffer overflow issues.
 - Table output: `util.c` prints a simple ASCII table with column widths defined in `src/def.h`.
+- Validation: Checks for duplicate product IDs when adding new products to ensure data integrity.
 
 **Files of interest**
 - `src/main.c` — program entrypoint and main menu loop.
@@ -52,7 +53,7 @@ When started the program shows a numbered menu:
 - Small improvements and bug fixes are welcome. Open an issue or a pull request.
 
 Notes and possible enhancements
-- Add more robust validation for duplicate product IDs and numeric input ranges.
+- Add more robust validation for numeric input ranges.
 - Add command-line arguments to specify an alternate data file.
 - Add CSV import/export for easier data interchange.
 - Add unit tests or a small test harness to validate file operations.
