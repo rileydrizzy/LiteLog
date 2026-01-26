@@ -52,12 +52,6 @@ When started the program shows a numbered menu:
 **Contributing**
 - Small improvements and bug fixes are welcome. Open an issue or a pull request.
 
-Notes and possible enhancements
-- Add more robust validation for numeric input ranges.
-- Add command-line arguments to specify an alternate data file.
-- Add CSV import/export for easier data interchange.
-- Add unit tests or a small test harness to validate file operations.
-
 **License**
 
 See the `LICENSE` file in the repository root for licensing details.
