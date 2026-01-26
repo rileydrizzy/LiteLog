@@ -83,16 +83,14 @@ void main_menu_display(void)
         delete_product(BUFFER, &ITEM);
         break;
     case 6:
-        exit(EXIT_SUCCESS);
+        keep_running = false;
         break;
     }
 }
 
 int main(void)
 {
-    do
-    {
-        main_menu_display();
-    } while (true);
+    bool keep_running = true;
+    while(keep_running){main_menu_display()}
     return EXIT_SUCCESS;
 }
